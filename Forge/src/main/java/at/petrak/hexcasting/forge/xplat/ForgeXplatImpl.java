@@ -88,6 +88,7 @@ import net.minecraftforge.network.NetworkDirection;
 import net.minecraftforge.network.PacketDistributor;
 import org.jetbrains.annotations.Nullable;
 import top.theillusivec4.caelus.api.CaelusApi;
+import top.theillusivec4.curios.api.CuriosApi;
 import virtuoel.pehkui.api.ScaleTypes;
 
 import java.util.ArrayList;
@@ -548,7 +549,9 @@ public class ForgeXplatImpl implements IXplatAbstractions {
             var allCurios = inv.getEquippedCurios();
             var slots = allCurios.getSlots();
             for (var i = 0; i < slots; i++) {
-                result.add(allCurios.getStackInSlot(i));
+                var stack = allCurios.getStackInSlot(i);
+                if (stack.isEmpty()) continue;
+                result.add(stack);
             }
         });
         return result;

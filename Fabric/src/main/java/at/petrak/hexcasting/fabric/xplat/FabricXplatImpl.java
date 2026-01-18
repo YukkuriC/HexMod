@@ -33,6 +33,7 @@ import at.petrak.hexcasting.xplat.IXplatTags;
 import at.petrak.hexcasting.xplat.Platform;
 import com.google.common.base.Suppliers;
 import com.mojang.serialization.Lifecycle;
+import dev.emi.trinkets.api.TrinketsApi;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.fabric.api.entity.FakePlayer;
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
@@ -506,7 +507,9 @@ public class FabricXplatImpl implements IXplatAbstractions {
         List<ItemStack> result = new ArrayList<>();
         TrinketsApi.getTrinketComponent(player).ifPresent(comp -> {
             for (var pair : comp.getAllEquipped()) {
-                result.add(pair.getB());
+                var stack = pair.getB();
+                if (stack.isEmpty()) continue;
+                result.add(stack);
             }
         });
         return result;

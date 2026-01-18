@@ -545,8 +545,8 @@ public class ForgeXplatImpl implements IXplatAbstractions {
     @Override
     public List<ItemStack> collectCuriosItems(Player player) {
         List<ItemStack> result = new ArrayList<>();
-        CuriosApi.getCuriosInventory(player).ifPresent(inv -> {
-            var allCurios = inv.getEquippedCurios();
+        // CuriosApi.getCuriosInventory(player) not exist yet
+        CuriosApi.getCuriosHelper().getEquippedCurios(player).ifPresent(allCurios -> {
             var slots = allCurios.getSlots();
             for (var i = 0; i < slots; i++) {
                 var stack = allCurios.getStackInSlot(i);

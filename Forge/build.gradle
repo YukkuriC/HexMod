@@ -219,4 +219,8 @@ processResources {
     }
 }
 
+tasks.withType(Javadoc) {
+    failOnError false
+}
+
 jar.finalizedBy('reobfJar')

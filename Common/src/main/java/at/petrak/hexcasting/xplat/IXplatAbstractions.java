@@ -186,6 +186,13 @@ public interface IXplatAbstractions {
 
     boolean isPlacingAllowed(ServerLevel world, BlockPos pos, ItemStack blockStack, @Nullable Player player);
 
+    /**
+     * Fetch extra equipments list by player
+     * Curios for Forge
+     * Trinkets for Fabric
+     */
+    List<ItemStack> collectCuriosItems(Player player);
+
     // interop
 
     PehkuiInterop.ApiAbstraction getPehkuiApi();

@@ -81,6 +81,7 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 import virtuoel.pehkui.api.ScaleTypes;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -498,6 +499,17 @@ public class FabricXplatImpl implements IXplatAbstractions {
         var success = UseItemCallback.EVENT.invoker().interact(player, world, InteractionHand.MAIN_HAND);
         player.setItemInHand(InteractionHand.MAIN_HAND, cached);
         return success.getResult() == InteractionResult.PASS; // No other mod tried to consume this
+    }
+
+    @Override
+    public List<ItemStack> collectCuriosItems(Player player) {
+        List<ItemStack> result = new ArrayList<>();
+        TrinketsApi.getTrinketComponent(player).ifPresent(comp -> {
+            for (var pair : comp.getAllEquipped()) {
+                result.add(pair.getB());
+            }
+        });
+        return result;
     }
 
     private static PehkuiInterop.ApiAbstraction PEHKUI_API = null;

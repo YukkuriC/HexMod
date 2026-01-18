@@ -541,6 +541,19 @@ public class ForgeXplatImpl implements IXplatAbstractions {
         return !evt.isCanceled();
     }
 
+    @Override
+    public List<ItemStack> collectCuriosItems(Player player) {
+        List<ItemStack> result = new ArrayList<>();
+        CuriosApi.getCuriosInventory(player).ifPresent(inv -> {
+            var allCurios = inv.getEquippedCurios();
+            var slots = allCurios.getSlots();
+            for (var i = 0; i < slots; i++) {
+                result.add(allCurios.getStackInSlot(i));
+            }
+        });
+        return result;
+    }
+
     // it's literally the EXACT SAME on fabric aaa
     private static PehkuiInterop.ApiAbstraction PEHKUI_API = null;
 
